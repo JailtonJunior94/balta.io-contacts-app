@@ -31,10 +31,14 @@ dependencies:
   path:
   url_launcher: ^5.4.10
   local_auth: ^0.6.2+3
+  mobx: ^0.4.0
+  flutter_mobx: ^0.3.4
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  build_runner:
+  mobx_codegen:
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
