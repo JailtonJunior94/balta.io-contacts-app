@@ -1,3 +1,4 @@
+import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -5,6 +6,8 @@ import 'package:contact_app/models/contact.model.dart';
 import 'package:contact_app/android/views/home.view.dart';
 import 'package:contact_app/android/views/loading.view.dart';
 import 'package:contact_app/android/views/address.view.dart';
+import 'package:contact_app/android/views/take-picture.view.dart';
+import 'package:contact_app/android/views/crop-picture.view.dart';
 import 'package:contact_app/repositories/contact.repository.dart';
 import 'package:contact_app/android/views/editor-contact.view.dart';
 import 'package:contact_app/shared/widgets/contact-details-image.widget.dart';
@@ -57,6 +60,41 @@ class _DetailsViewState extends State<DetailsView> {
 
   onError(error) {
     print(error);
+  }
+
+  takePicture() async {
+    final cameras = await availableCameras();
+    final firstCamera = cameras.first;
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => TakePictureView(
+          camera: firstCamera,
+        ),
+      ),
+    ).then((imagePath) {
+      cropPicture(imagePath);
+    });
+  }
+
+  cropPicture(String path) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => CropPictureView(
+          path: path,
+        ),
+      ),
+    ).then((imagePath) {
+      updateImage(imagePath);
+    });
+  }
+
+  updateImage(String path) {
+    _repository.updateImage(widget.id, path).then((_) {
+      setState(() {});
+    });
   }
 
   @override
@@ -113,7 +151,7 @@ class _DetailsViewState extends State<DetailsView> {
                 child: Icon(Icons.email, color: Theme.of(context).accentColor),
               ),
               FlatButton(
-                onPressed: () {},
+                onPressed: takePicture,
                 color: Theme.of(context).primaryColor,
                 shape: CircleBorder(side: BorderSide.none),
                 child: Icon(

@@ -5,6 +5,8 @@ import 'package:contact_app/ios/ios.app.dart';
 import 'package:contact_app/android/android.app.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+
   if (Platform.isIOS) {
     runApp(IOSApp());
   } else {
