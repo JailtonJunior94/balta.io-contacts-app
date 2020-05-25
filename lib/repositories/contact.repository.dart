@@ -131,4 +131,30 @@ class ContactRepository {
       return;
     }
   }
+
+  Future updateAddress(
+    int id,
+    String addressLine1,
+    String addressLine2,
+    String latLong,
+  ) async {
+    try {
+      final Database db = await _getDatabase();
+      final model = await getContact(id);
+
+      model.addressLine1 = addressLine1;
+      model.addressLine2 = addressLine2;
+      model.latLng = latLong;
+
+      await db.update(
+        CONTACTS_TABLE_NAME,
+        model.toMap(),
+        where: "id = ?",
+        whereArgs: [model.id],
+      );
+    } catch (ex) {
+      print(ex);
+      return;
+    }
+  }
 }

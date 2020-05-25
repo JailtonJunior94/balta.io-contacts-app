@@ -37,6 +37,9 @@ dependencies:
   path_provider:
   uuid: ^2.0.4
   image_crop: ^0.3.2
+  google_maps_flutter:
+  dio:
+  geolocator:
 
 dev_dependencies:
   flutter_test:

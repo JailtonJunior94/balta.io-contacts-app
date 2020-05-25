@@ -1,6 +1,7 @@
+import 'package:flutter/material.dart';
+
 import 'package:contact_app/android/styles.dart';
 import 'package:contact_app/android/views/home.view.dart';
-import 'package:flutter/material.dart';
 
 class AndroidApp extends StatelessWidget {
   @override
